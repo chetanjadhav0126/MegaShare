@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">MegaShare</string>
+    <string name="appname">MegaShare</string>
+    <string name="slogan">One App, Many Devices, Endless Sharing.</string>
+    <string name="intro_main">The easiest way to transfer files to multiple devices at once. Enjoy fast, secure, and seamless syncing for all your important documents and media.</string>
+    <string name="individualbtnname">Individual</string>
+    <string name="groupbtnname">Group</string>
+    <string name="filebtnname">Files</string>
+    <string name="accountbtnname">Account</string>
+    <string name="send">Send</string>
+    <string name="receive">Receive</string>
+    <string name="image_button_13_description">Share this item</string>
+    <string name="download_button_description">Download the file</string>
+    <string name="send_button_description">Send the file</string>
+    <string name="qrcode_button_description">Shows the qrcode</string>
+    <string name="scanqrcode_button_description">Scan the qrcode</string>
+    <string name="help_button_description">Shows the help</string>
+</resources>
