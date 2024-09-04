@@ -6,8 +6,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home_layout">
-    
+    tools:context=".group_share">
+
+
     <TextView
         android:id="@+id/appnametxt"
         android:layout_width="wrap_content"
@@ -33,59 +34,57 @@
         app:layout_constraintTop_toBottomOf="@+id/appnametxt">
 
         <ImageButton
-            android:id="@+id/sendbtn"
+            android:id="@+id/creategroupbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
             android:scaleType="fitXY"
             android:contentDescription="@string/send_button_description"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/downloadbtn"
+            app:layout_constraintEnd_toStartOf="@+id/joingroupbtn"
             app:layout_constraintHorizontal_bias="0.746"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.38"
-            app:srcCompat="@drawable/sendtbn2" />
+            app:srcCompat="@drawable/creategroupbtn" />
 
         <TextView
-            android:id="@+id/sendtxt"
+            android:id="@+id/creategrouptxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/send"
+            android:text="@string/creategroup"
             android:textAlignment="center"
-            android:textSize="30sp"
+            android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/sendbtn"
-            app:layout_constraintHorizontal_bias="0.658"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sendbtn"
-            app:layout_constraintVertical_bias="0.509" />
+            app:layout_constraintEnd_toEndOf="@+id/creategroupbtn"
+            app:layout_constraintStart_toStartOf="@+id/creategroupbtn"
+            app:layout_constraintTop_toBottomOf="@+id/creategroupbtn"
+            app:layout_constraintVertical_bias="0.49" />
 
         <ImageButton
-            android:id="@+id/downloadbtn"
+            android:id="@+id/joingroupbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
             android:contentDescription="@string/download_button_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/sendbtn"
+            app:layout_constraintStart_toEndOf="@+id/creategroupbtn"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.38"
-            app:srcCompat="@drawable/downloadbtn" />
+            app:srcCompat="@drawable/joingroupbtn" />
 
         <TextView
-            android:id="@+id/downloadtxt"
+            android:id="@+id/joingrouptxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/receive"
-            android:textSize="30sp"
+            android:text="@string/joingroup"
+            android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.289"
-            app:layout_constraintStart_toStartOf="@+id/downloadbtn"
-            app:layout_constraintTop_toBottomOf="@+id/downloadbtn"
+            app:layout_constraintEnd_toEndOf="@+id/joingroupbtn"
+            app:layout_constraintStart_toStartOf="@+id/joingroupbtn"
+            app:layout_constraintTop_toBottomOf="@+id/joingroupbtn"
             app:layout_constraintVertical_bias="0.509" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -259,7 +258,7 @@
 
 
                     <ImageButton
-                        android:id="@+id/accountbtnimg"
+                        android:id="@+id/account_btn"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:padding="0dp"
@@ -282,8 +281,6 @@
             </LinearLayout>
         </com.google.android.material.bottomappbar.BottomAppBar>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

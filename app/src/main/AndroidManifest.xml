@@ -13,6 +13,21 @@
         android:theme="@style/Theme.MegaShare"
         tools:targetApi="31">
         <activity
+            android:name=".login"
+            android:exported="false" />
+        <activity
+            android:name=".signup"
+            android:exported="false" />
+        <activity
+            android:name=".files"
+            android:exported="false" />
+        <activity
+            android:name=".account"
+            android:exported="false" />
+        <activity
+            android:name=".group_share"
+            android:exported="false" />
+        <activity
             android:name=".home_layout"
             android:exported="false" />
         <activity
