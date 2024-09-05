@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "950269056932",
+    "project_id": "megashare-appsignin-2ad94",
+    "storage_bucket": "megashare-appsignin-2ad94.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950269056932:android:8152dba43fad53e122d331",
+        "android_client_info": {
+          "package_name": "com.example.megashare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "950269056932-eu9korndval8jcbprinf2uij68u9hk99.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJS57mfiasKrKEoWRmPsjcf47QpLLUHpk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "950269056932-eu9korndval8jcbprinf2uij68u9hk99.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

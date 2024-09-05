@@ -24,8 +24,13 @@
     <string name="login_password">Password</string>
     <string name="login">Login</string>
     <string name="signup">Sign Up</string>
-    <string name="orsigninwith">Or Sign In With<with></with></string>
+    <string name="orsigninwith">Or Sign In With</string>
     <string name="doyouhaveanaccount">Do you have an account?</string>
+    <string name="continuewithgoogle">Continue with Google</string>
+    <string name="signup_createaccount">Create Account</string>
+    <string name="signup_email">Email</string>
+    <string name="register">Register</string>
+    <string name="orsignupwith">Or Sign Up With</string>
     <string name="group_button_description">Go to Group</string>
     <string name="files_button_description">Go to Files</string>
     <string name="account_button_description">Go to Account</string>
