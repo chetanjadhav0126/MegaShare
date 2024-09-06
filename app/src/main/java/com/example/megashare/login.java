@@ -25,32 +25,14 @@ public class login extends AppCompatActivity {
             return insets;
         });
 
-        TextView signup = findViewById(R.id.signup);
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent signup = new Intent(login.this, signup.class);
-                startActivity(signup);
-            }
-        });
+//        TextView signup = findViewById(R.id.signup);
+//        signup.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent signup = new Intent(login.this, signup.class);
+//                startActivity(signup);
+//            }
+//        });
 
-
-        Button loginbtn = findViewById(R.id.loginbtn);
-        loginbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent loginbtn = new Intent(login.this, home_layout.class);
-                startActivity(loginbtn);
-            }
-        });
-
-        Button googlesignin = findViewById(R.id.googlesignin);
-        googlesignin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent googlesignin = new Intent(login.this, home_layout.class);
-                startActivity(googlesignin);
-            }
-        });
     }
 }

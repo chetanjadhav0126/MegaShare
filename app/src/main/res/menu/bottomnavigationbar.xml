@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/individual"
+        android:title="@string/individualbtnname"
+        android:icon="@drawable/individual_btn"
+        android:enabled="true"
+        />
+
+    <item
+        android:id="@+id/group"
+        android:title="@string/groupbtnname"
+        android:icon="@drawable/group_btn"
+        android:enabled="true"
+        />
+
+    <item
+        android:id="@+id/files"
+        android:title="@string/filebtnname"
+        android:icon="@drawable/file_btn"
+        android:enabled="true"
+        />
+
+    <item
+        android:id="@+id/account"
+        android:title="@string/accountbtnname"
+        android:icon="@drawable/account_btn"
+        android:enabled="true"
+        />
+</menu>

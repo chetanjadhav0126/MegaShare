@@ -1,65 +1,64 @@
 package com.example.megashare;
 
-import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
+import android.view.ViewGroup;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link account#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class account extends Fragment {
 
-public class account extends AppCompatActivity {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public account() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment account.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static account newInstance(String param1, String param2) {
+        account fragment = new account();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_account);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
-
-
-        ImageButton individualbtnimg = findViewById(R.id.individualbtnimg);
-        individualbtnimg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent individualbtnimg = new Intent(account.this, home_layout.class);
-                startActivity(individualbtnimg);
-            }
-        });
-
-        ImageButton groupbtnimg = findViewById(R.id.groupbtnimg);
-        groupbtnimg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent groupbtnimg = new Intent(account.this, group_share.class);
-                startActivity(groupbtnimg);
-            }
-        });
-
-        ImageButton accountbtnimg = findViewById(R.id.accountbtnimg);
-        accountbtnimg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent accountbtnimg = new Intent(account.this, account.class);
-                startActivity(accountbtnimg);
-            }
-        });
-
-        ImageButton filesbtnimg = findViewById(R.id.filesbtnimg);
-        filesbtnimg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent filesbtnimg = new Intent(account.this, files.class);
-                startActivity(filesbtnimg);
-            }
-        });
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_account, container, false);
     }
 }

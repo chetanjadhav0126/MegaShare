@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent ishare = new Intent(MainActivity.this, login.class);
+                Intent ishare = new Intent(MainActivity.this, bottomnavbar.class);
                 startActivity(ishare);
             }
         });
