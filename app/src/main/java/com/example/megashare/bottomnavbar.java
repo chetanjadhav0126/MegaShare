@@ -51,7 +51,7 @@ public class bottomnavbar extends AppCompatActivity {
                 } else if (itemId == R.id.files) {
                     loadFragment(new files(), false);
 
-                } else {
+                } else if(itemId == R.id.account) {
                     loadFragment(new account(), false);
 
                 }

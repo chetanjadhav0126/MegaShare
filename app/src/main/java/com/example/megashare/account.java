@@ -2,63 +2,98 @@ package com.example.megashare;
 
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+import com.bumptech.glide.Glide;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link account#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
+
 public class account extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public account() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment account.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static account newInstance(String param1, String param2) {
-        account fragment = new account();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private ImageView profilepicture;
+    private TextView nameTextView;
+    private TextView emailTextView;
+    private Button signOutButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account, container, false);
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
+
+        // Initialize Firebase and Firestore
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
+        // Initialize views
+        profilepicture = view.findViewById(R.id.profilepicture);
+        nameTextView = view.findViewById(R.id.nameTextView);
+        emailTextView = view.findViewById(R.id.emailTextView);
+        signOutButton = view.findViewById(R.id.signOutButton);
+
+        // Load user info from Firebase
+        loadUserInfo();
+
+        // Set up sign out button listener
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+            }
+        });
+
+        return view; // Ensure you return the inflated view
     }
+
+    private void loadUserInfo() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            String userName = user.getDisplayName();
+            String userEmail = user.getEmail();
+            String profilePictureUrl = user.getPhotoUrl() != null ? user.getPhotoUrl().toString() : null;
+
+            nameTextView.setText(userName != null ? userName : "No Name");
+            emailTextView.setText(userEmail != null ? userEmail : "No Email");
+
+            if (profilePictureUrl != null) {
+                Picasso.get().load(profilePictureUrl).placeholder(R.drawable.account_btn).into(profilepicture);
+            } else {
+                profilepicture.setImageResource(R.drawable.account_btn); // Fallback image
+            }
+        }
+    }
+
+    private void signOut() {
+        mAuth.signOut();
+        Intent intent = new Intent(getActivity(), login.class); // Change to your login activity
+        startActivity(intent);
+        getActivity().finish(); // Use getActivity().finish() instead of finish() in a Fragment
+    }
+
 }

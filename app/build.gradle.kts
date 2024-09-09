@@ -46,8 +46,9 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.google.firebase.auth)
     implementation(libs.material3)
-
-
+    implementation(libs.firebase.firestore)
+    implementation(libs.picasso)
+    implementation(libs.glide)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

@@ -23,6 +23,7 @@
 
     <string name="login_welcometxt">Welcome Back</string>
     <string name="login_welcometxtlow">Enter your credential to login</string>
+    <string name="login_name">Name</string>
     <string name="login_username">Username</string>
     <string name="login_password">Password</string>
     <string name="login">Login</string>
@@ -40,6 +41,5 @@
     <string name="group_button_description">Go to Group</string>
     <string name="files_button_description">Go to Files</string>
     <string name="account_button_description">Go to Account</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
