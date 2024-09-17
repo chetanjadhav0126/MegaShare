@@ -2,9 +2,11 @@ package com.example.megashare;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.util.Patterns;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,6 +34,8 @@ public class signup extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
+    private TextInputEditText emailEditText, passwordEditText, nameEditText;
+    private TextInputLayout passwordLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +55,6 @@ public class signup extends AppCompatActivity {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        findViewById(R.id.registerbtn).setOnClickListener(v -> registerUser());
         findViewById(R.id.googlesignin).setOnClickListener(v -> signInWithGoogle());
 
         TextView login = findViewById(R.id.login);
@@ -62,25 +65,63 @@ public class signup extends AppCompatActivity {
                 startActivity(ilogin);
             }
         });
+
+        emailEditText = findViewById(R.id.signup_email_edittext);
+        passwordEditText = findViewById(R.id.signup_password_edittext);
+        nameEditText = findViewById(R.id.signup_name_edittext);
+        passwordLayout = findViewById(R.id.signup_password);
+
+        Button registerButton = findViewById(R.id.registerbtn);
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = emailEditText.getText().toString().trim();
+                String password = passwordEditText.getText().toString().trim();
+                String name = nameEditText.getText().toString().trim();
+
+                if (validateInput(name, email, password)) {
+                    registerUser(email, password);
+                }
+            }
+        });
     }
 
-    private void registerUser() {
-        String email = ((TextInputEditText) findViewById(R.id.signup_email)).getText().toString().trim();
-        String password = ((TextInputEditText) findViewById(R.id.signup_password)).getText().toString().trim();
+    private boolean isStrongPassword(String password) {
+        // Strong password rules: at least 8 characters, one uppercase letter, one digit, one special character
+        return password.length() >= 8
+                && password.matches(".*[A-Z].*")    // At least one uppercase letter
+                && password.matches(".*[0-9].*")    // At least one digit
+                && password.matches(".*[@#$%^&+=!].*");  // At least one special character
+    }
 
-        Log.d("SignupActivity", "Registering user with email: " + email);
-
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show();
-            return;
+    private boolean validateInput(String name, String email, String password) {
+        // Validate email
+        if (TextUtils.isEmpty(name)) {
+            Toast.makeText(signup.this, "Please enter your name", Toast.LENGTH_SHORT).show();
+            return false;
         }
 
-        if (password.length() < 6) {
-            Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
-            return;
+        if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(signup.this, "Please enter a valid email", Toast.LENGTH_SHORT).show();
+            return false;
         }
 
-        // Register user with Firebase
+        // Validate password
+        if (TextUtils.isEmpty(password)) {
+            passwordLayout.setError("Password cannot be empty");
+            return false;
+        } else if (!isStrongPassword(password)) {
+            passwordLayout.setError("Password must be at least 8 characters, include an uppercase letter, a number, and a special character");
+            return false;
+        } else {
+            passwordLayout.setError(null);  // Clear the error
+        }
+
+        return true;
+    }
+
+
+    private void registerUser(String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     Log.d("signup", "Registration task result: " + task.isSuccessful());

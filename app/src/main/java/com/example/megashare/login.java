@@ -4,15 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Patterns;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -23,17 +22,22 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+
+import java.util.Objects;
 
 public class login extends AppCompatActivity {
 
     private FirebaseAuth mAuth;  // Add this line to declare FirebaseAuth instance
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 9001;
+    private EditText emailEditText;
+    private EditText passwordEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,33 +70,46 @@ public class login extends AppCompatActivity {
                 startActivity(isignup);
             }
         });
+        emailEditText = findViewById(R.id.login_email).findViewById(R.id.login_email_edittext);
+        passwordEditText = findViewById(R.id.login_password).findViewById(R.id.login_password_edittext);
+
     }
 
     private void loginUser() {
-        String email = ((TextInputEditText) findViewById(R.id.login_username)).getText().toString().trim();
-        String password = ((TextInputEditText) findViewById(R.id.login_password)).getText().toString().trim();
+        String email = emailEditText.getText().toString().trim();
+        String password = passwordEditText.getText().toString().trim();
 
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
+        // Basic input validation
+        if (TextUtils.isEmpty(email)) {
+            emailEditText.setError("Email is required");
+            emailEditText.requestFocus();
             return;
         }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(password)) {
+            passwordEditText.setError("Password is required");
+            passwordEditText.requestFocus();
             return;
         }
 
+        // Attempt to sign in with email and password
         mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(login.this, bottomnavbar.class));
-                        finish();
-                    } else {
-                        Toast.makeText(this, "Login failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success
+                            Toast.makeText(login.this, "Login successful", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(login.this, bottomnavbar.class));
+                            finish();
+                        } else {
+                            // Sign in failed
+                            Toast.makeText(login.this, "Login failed: " + Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
     }
+
 
     // Google Sign-In
     private void signInWithGoogle() {
